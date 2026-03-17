@@ -12,9 +12,6 @@ const app = express();
 // database
 dbConnection();
 
-//CORS
-const cors = require('cors');
-
 // Allow your frontend domain
 app.use(cors({
     origin: 'https://react-mern-production-426.up.railway.app',
