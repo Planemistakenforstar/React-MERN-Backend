@@ -34,10 +34,14 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 
 
-app.use(/.*/, (req, res) => {
+// IMPORTANT: This catch-all route MUST be LAST
+// It should only handle routes that aren't API routes or static files
+app.get('*', (req, res) => {
+    // Check if the request is for an API route (should have been handled already)
+    // Check if it's a static file (should have been handled by express.static)
+    // If we get here, send index.html for client-side routing
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 //listen petitions
 app.listen(process.env.PORT, ()=>{
     console.log(`servidor corriendo en puerto ${process.env.PORT}`);
