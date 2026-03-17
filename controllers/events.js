@@ -21,12 +21,9 @@ const createEvents = async(req, res = response) =>{
         event.user = req.uid;
         const savedEvent = await event.save();
         
-        // Convert to object and apply toJSON manually
-        const eventObject = savedEvent.toJSON(); // This will trigger your toJSON method
-        
         res.json({
             ok: true,
-            event: eventObject  // Now event will have 'id' instead of '_id'
+            event: savedEvent  // Now event will have 'id' instead of '_id'
         });
         
     }catch(error){
