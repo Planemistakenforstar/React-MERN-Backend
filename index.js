@@ -26,8 +26,8 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 
-// IMPORTANT FIX: Use '/*' instead of '*'
-app.get('/*', (req, res) => {
+// ✅ CORRECTED CATCH-ALL ROUTE - using named wildcard
+app.get('/*path', (req, res) => {
     // Don't serve index.html for API routes (they should have been handled already)
     if (!req.path.startsWith('/api')) {
         res.sendFile(path.join(__dirname, 'public', 'index.html'));
