@@ -21,6 +21,7 @@ const createEvents = async(req, res = response) =>{
         event.user = req.uid;
         const savedEvent = await event.save();
         
+        console.log(savedEvent);
         res.json({
             ok: true,
             event: savedEvent  // Now event will have 'id' instead of '_id'
