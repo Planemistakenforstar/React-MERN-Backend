@@ -14,23 +14,27 @@ const getEvents = async(req, res = response) =>{
 
 
 const createEvents = async(req, res = response) =>{
-          console.log('enters createEvents');
-     const event =  new Event(req.body);
+    console.log('enters createEvents');
+    const event = new Event(req.body);
 
-     try{
-          event.user = req.uid;
-          const savedEvent = await event.save();
-
-          res.json({
-               ok: true,
-               event: savedEvent
-          });
-     }catch(error){
-          res.status(500).json({
-               ok: false,
-               msg: 'Hable con el administrador'
-          })
-     }
+    try{
+        event.user = req.uid;
+        const savedEvent = await event.save();
+        
+        // Convert to object and apply toJSON manually
+        const eventObject = savedEvent.toJSON(); // This will trigger your toJSON method
+        
+        res.json({
+            ok: true,
+            event: eventObject  // Now event will have 'id' instead of '_id'
+        });
+        
+    }catch(error){
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
 }
 
 
